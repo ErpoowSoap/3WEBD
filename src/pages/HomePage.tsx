@@ -1,22 +1,23 @@
+import { Card } from "../component/Card";
+import { PaginationPage } from "../component/Pagination";
 import { useRecentChanges } from "../hooks/book";
 import styles from "./HomePage.module.css";
-import { PaginationPage } from "../component/Pagination";
-import { BookCard } from "../component/BookCard";
-//import { BookCard } from "../component/BookCard";
+import { useState } from "react";
 
 export default function HomePage() {
-  const bookQuery = useRecentChanges();
+  const bookQuery = useRecentChanges()
+  const [activePage, setActivePage] = useState(1);
 
   if (bookQuery.isLoading) {
     return (
-      <div className={styles.test1}>
+      <div className={styles.loadingContainer}>
         <p className={styles.loading}>Chargement</p>
       </div>
     );
   }
 
-  const { data: movies } = bookQuery;
-  if (bookQuery.isError || !movies) {
+  const { data: books } = bookQuery;
+  if (bookQuery.isError || !books) {
     return (
       <div>
         <p>Erreur au chargement</p>
@@ -27,12 +28,17 @@ export default function HomePage() {
     );
   }
 
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(books.length / itemsPerPage);
+  const startIndex = (activePage - 1) * itemsPerPage;
+  const itemsToShow = books.slice(startIndex, startIndex + itemsPerPage);
+
   return (
     <>
       <div className={styles.root}>
         <div className={styles.container}>
-          {movies.slice(0, 12).map((movie) => (
-            <BookCard key={movie.title} book={movie} />
+          {itemsToShow.map((book) => (
+            <Card key={book.title} book={book} />
           ))}
         </div>
         <div
@@ -42,7 +48,11 @@ export default function HomePage() {
             paddingBottom: "20px",
           }}
         >
-          <PaginationPage />
+          <PaginationPage
+            total={totalPages}
+            activePage={activePage}
+            onChange={setActivePage}
+          />
         </div>
       </div>
     </>

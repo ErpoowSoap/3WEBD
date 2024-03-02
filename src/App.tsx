@@ -3,6 +3,7 @@ import "./App.css";
 import { Header } from "./component/Header";
 import { Footer } from "./component/Footer";
 import HomePage from "./pages/HomePage";
+import DetailsPage from "./pages/DetailsPage";
 
 function Root() {
   return (
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
+      {
+        path: "/details:authorId",
+        element: <DetailsPage />,
+      }
     ],
   },
 ]);

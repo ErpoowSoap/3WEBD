@@ -2,9 +2,10 @@ import { Autocomplete, Group, Burger, rem } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconSearch } from "@tabler/icons-react";
 import classes from "./Header.module.css";
+import { Link } from "react-router-dom";
 
 const links = [
-  { link: "/about", label: "Features" },
+  { link: "/details", label: "Details" },
   { link: "/pricing", label: "Pricing" },
   { link: "/learn", label: "Learn" },
   { link: "/community", label: "Community" },
@@ -14,14 +15,13 @@ export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
 
   const items = links.map((link) => (
-    <a
+    <Link
       key={link.label}
-      href={link.link}
+      to={link.link}
       className={classes.link}
-      onClick={(event) => event.preventDefault()}
     >
       {link.label}
-    </a>
+    </Link>
   ));
 
   return (
@@ -29,7 +29,9 @@ export function Header() {
       <div className={classes.inner}>
         <Group>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-          <img className= {classes.logo} src="./src/assets/image/logo.avif" alt="Sagesse Eternelle" />
+          <Link to= "/">
+          <img className= {classes.logo} src="./src/assets/image/logo.avif" alt="/" />
+          </Link>
           <h3>Sagesse Eternelle</h3>
         </Group>
 

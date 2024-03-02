@@ -1,6 +1,11 @@
 import { randomId } from '@mantine/hooks';
 import { Pagination } from '@mantine/core';
-import { useState } from 'react';
+
+interface PaginationProps {
+  total: number;
+  activePage: number;
+  onChange: (page: number) => void;
+}
 
 function chunk<T>(array: T[], size: number): T[][] {
   if (!array.length) {
@@ -18,17 +23,15 @@ const data = chunk(
   5
 );
 
-export function PaginationPage() {
-  const [activePage, setPage] = useState(1);
-//   const items = data[activePage - 1].map((item) => (
-//     <Text key={item.id}>
-//       id: {item.id}, name: {item.name}
-//     </Text>
-//   ));
+interface PaginationProps {
+  activePage: number;
+  onChange: (page: number) => void;
+}
+
+export function PaginationPage({ activePage, onChange }: PaginationProps) {
+  const totalPages = data.length;
 
   return (
-    <>
-      <Pagination total={data.length} value={activePage} onChange={setPage} mt="sm" />
-    </>
+    <Pagination total={totalPages} value={activePage} onChange={onChange} mt="sm" />
   );
 }
