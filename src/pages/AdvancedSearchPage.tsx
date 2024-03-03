@@ -1,44 +1,26 @@
-import { useState } from 'react';
+import React from 'react';
+import useAdvancedSearch from "../hooks/useAdvancedSearch.ts";
+import { Card } from "../component/Card";
 
-interface Book {
-    key: string;
-    title: string;
-    author_name: string[];
-    first_publish_year: number;
-    isbn: string[];
-    subject: string[];
-    publisher: string[];
-    // Ajoutez d'autres propriétés au besoin
-}
+const AdvancedSearchPage: React.FC = () => {
+    const {
+        title,
+        setTitle,
+        author,
+        setAuthor,
+        publishYear,
+        setPublishYear,
+        isbn,
+        setIsbn,
+        theme,
+        setTheme,
+        publisher,
+        setPublisher,
+        results,
+    } = useAdvancedSearch();
 
-const AdvancedSearchPage = () => {
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [publishYear, setPublishYear] = useState('');
-    const [isbn, setIsbn] = useState('');
-    const [theme, setTheme] = useState('');
-    const [publisher, setPublisher] = useState('');
-    const [results, setResults] = useState<Book[]>([]);
-
-    const handleSearch = async () => {
-        try {
-            const url = new URL('https://openlibrary.org/search.json');
-            if (title) url.searchParams.append('title', title);
-            if (author) url.searchParams.append('author', author);
-            if (publishYear) url.searchParams.append('first_publish_year', publishYear);
-            if (isbn) url.searchParams.append('isbn', isbn);
-            if (theme) url.searchParams.append('subject', theme);
-            if (publisher) url.searchParams.append('publisher', publisher);
-
-            const response = await fetch(url.toString());
-            const data = await response.json();
-
-            setResults(data.docs);
-        } catch (error) {
-            console.error('Error fetching search results:', error);
-        }
+    const handleSearch = () => {
     };
-
     return (
         <div>
             <h1>Advanced Search</h1>
@@ -81,18 +63,11 @@ const AdvancedSearchPage = () => {
             <button onClick={handleSearch}>Search</button>
             <div>
                 <h2>Search Results:</h2>
-                <ul>
+                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     {results.map((result) => (
-                        <li key={result.key}>
-                            <div>Title: {result.title}</div>
-                            <div>Author(s): {result.author_name ? result.author_name.join(', ') : 'Unknown'}</div>
-                            <div>First Publish Year: {result.first_publish_year}</div>
-                            <div>ISBN: {result.isbn ? result.isbn.join(', ') : 'Unknown'}</div>
-                            <div>Theme: {result.subject ? result.subject.join(', ') : 'Unknown'}</div>
-                            <div>Publisher: {result.publisher ? result.publisher.join(', ') : 'Unknown'}</div>
-                        </li>
+                        <Card key={result.key} book={result} />
                     ))}
-                </ul>
+                </div>
             </div>
         </div>
     );

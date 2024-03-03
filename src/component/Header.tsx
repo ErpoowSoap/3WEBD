@@ -68,7 +68,7 @@ export function Header(): JSX.Element {
             <Link to="/search" className={classes.link}>
               Advanced Search
             </Link>
-           <Autocomplete
+            <Autocomplete
                 className={classes.search}
                 placeholder="Search"
                 value={searchValue}

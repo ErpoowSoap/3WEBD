@@ -3,7 +3,9 @@ import "./App.css";
 import { Header } from "./component/Header";
 import { Footer } from "./component/Footer";
 import HomePage from "./pages/HomePage";
-import SearchPage from "./pages/AdvancedSearchPage.tsx";
+import DetailsPage from "./pages/DetailsPage";
+import AdvancedSearchPage from "./pages/AdvancedSearchPage.tsx";
+
 function Root() {
   return (
     <>
@@ -25,11 +27,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/search", //
-        element: <SearchPage />,
+        element: <AdvancedSearchPage />,
       },
+      {
+        path: "/details:authorId",
+        element: <DetailsPage />,
+      }
     ],
   },
 ]);
+
 function App() {
   return <RouterProvider router={router} />;
 }
