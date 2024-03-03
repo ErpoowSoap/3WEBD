@@ -30,7 +30,7 @@ export function Header() {
         <Group>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
           <Link to= "/">
-          <img className= {classes.logo} src="./src/assets/image/logo.avif" alt="/" />
+          <img className= {classes.logo} src="./src/assets/image/logo.png" alt="/" />
           </Link>
           <h3>Sagesse Eternelle</h3>
         </Group>

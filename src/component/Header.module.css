@@ -14,13 +14,14 @@
 }
 
 .logo {
-  max-width: rem(80px);
+  max-width: rem(70px);
   display: flex;
   align-items: center;
   border: none;
   -moz-border-radius: 75px;
   -webkit-border-radius: 75px;
   border-radius: 75px;
+  background-color: #ffff;
 }
 
 .inner {
