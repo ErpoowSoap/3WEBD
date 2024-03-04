@@ -1,58 +1,141 @@
 import { useParams } from "react-router-dom";
 import styles from "./DetailsPage.module.css";
 import "./DetailsPage.module.css";
-import { useAuthorById } from "../hooks/author";
+import { useBook } from "../hooks/book";
+import { IconHeart } from "@tabler/icons-react";
+import { Loading } from "../component/Loading";
 
 export default function DetailsPage() {
-  const { authorId } = useParams();
-  
-  if (!authorId || authorId === undefined) {
-    return <p>Erreur lors du chargement</p>;
+  const { bookId } = useParams();
+  if (!bookId || bookId === undefined) {
+    return <div>Book not found</div>;
+  }
+  const bookDetail = useBook({ bookId });
+
+  if (bookDetail.isLoading) {
+    return <Loading />;
   }
 
-  console.log("authorId", authorId);
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const authorDetail = useAuthorById({authorId});
-  
-  if (authorDetail.isLoading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <p className={styles.loading}>Chargement</p>
-      </div>
-    );
+  const { data: book } = bookDetail;
+  if (bookDetail.isError || !book) {
+    return <div>Book not found</div>;
   }
+  //console.log(book);
+  //
+  // git config --global user.name "ellamaryan"
+  const cover = book.key.split("/")[2];
 
-  const { data: author } = authorDetail;
-  if (authorDetail.isError || !author) {
-    return (
-      <div>
-        <p>Erreur au chargement</p>
-        <button type="button" onClick={() => authorDetail.refetch()}>
-          Recharger
-        </button>
-      </div>
-    );
+  let subjects;
+  if (book && book.subjects) {
+    subjects = book.subjects
+      .map((subject, index) => (
+        <div key={index} className={styles.featureItem}>
+          <IconHeart size="1.05rem" className={styles.icon} stroke={1.5} />
+          <p>{subject}</p>
+        </div>
+      ))
+      .slice(0, 4);
+  } else if (book && book.workData && book.workData.subjects) {
+    subjects = book.workData.subjects
+      .map((subject, index) => (
+        <div key={index} className={styles.featureItem}>
+          <IconHeart size="1.05rem" className={styles.icon} stroke={1.5} />
+          <p>{subject}</p>
+        </div>
+      ))
+      .slice(0, 4);
   }
 
   return (
-    <div className={styles.root}>
-      <div className={styles.container}>
-        <div className={styles.imageSection}>
-          <h4>{author[0].name}</h4>
+    <>
+      <div className={styles.root}>
+        <div className={styles.containerImage}>
+          <img
+            src={`https://covers.openlibrary.org/b/olid/${cover}-L.jpg`}
+            alt="Cover book"
+          />
         </div>
-        <div className={styles.section}>
-          <p className={styles.label}>Nom complet :</p>
-          <p>{author[0].fuller_name}</p>
-          <p className={styles.label}>Date de naissance :</p>
-          <p>{author[0].birth_date}</p>
-          <p className={styles.label}>Date de décès :</p>
-          <p>{author[0].death_date}</p>
-          <p className={styles.label}>Biographie :</p>
-          <p>{author[0].bio.value}</p>
+        <div className={styles.containerTexte}>
+          <div className={styles.titleSection}>
+            <h2>{book.title}</h2>
+          </div>
+          <div className={styles.section}>
+            {book.authorData ? (
+              <>
+                <p className={styles.label}>Auteur : {book.authorData.name}</p>
+                {book.authorData.birth_date && (
+                  <p className={styles.label}>
+                    Date de naissance : {book.authorData.birth_date}
+                  </p>
+                )}
+                {book.authorData.death_date && (
+                  <p className={styles.label}>
+                    Date de décès : {book.authorData.death_date}
+                  </p>
+                )}
+                {book.authorData.bio && (
+                  <p className={styles.label}>
+                    Biographie :{" "}
+                    {typeof book.authorData.bio === "string"
+                      ? book.authorData.bio
+                      : book.authorData.bio[0]?.value}
+                  </p>
+                )}
+                {/* {book.authorData.bio.value && (
+                <p className={styles.label}>Biographie : {book.authorData.bio.value}</p>
+              )} */}
+              </>
+            ) : (
+              <>
+                <p className={styles.label}>Auteur : N'a pas été renseigné !</p>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      <div className={styles.containerBottom}>
+        <div className={styles.section}>
+          <h3 className={styles.label}>Détails du livre</h3>
+          {book.publish_places && (
+            <p className={styles.label}>
+              Lieu de publication : {book.publish_places}
+            </p>
+          )}
+          <p></p>
+          {book.publish_date && (
+            <p className={styles.label}>
+              Date de publication : {book.publish_date}
+            </p>
+          )}
+          <p></p>
+          {book.workData.description && (
+            <p className={styles.label}>
+              Description :{" "}
+              {typeof book.workData.description === "string"
+                ? book.workData.description
+                : book.workData.description[0]?.value}
+            </p>
+          )}
+          <div className={styles.features}>
+            {subjects && (
+              <>
+                <p className={styles.label}>Sujets : </p>
+                {subjects}
+              </>
+            )}
+          </div>
+          <p></p>
+          {book.pagination && (
+            <p className={styles.label}>Nombre de pages : {book.pagination}</p>
+          )}
+          <p></p>
+          {book.physical_format && (
+            <p className={styles.label}>
+              Format physique : {book.physical_format}
+            </p>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
-

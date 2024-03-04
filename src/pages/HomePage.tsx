@@ -1,4 +1,5 @@
 import { Card } from "../component/Card";
+import { Loading } from "../component/Loading";
 import { PaginationPage } from "../component/Pagination";
 import { useRecentChanges } from "../hooks/book";
 import styles from "./HomePage.module.css";
@@ -9,11 +10,7 @@ export default function HomePage() {
   const [activePage, setActivePage] = useState(1);
 
   if (bookQuery.isLoading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <p className={styles.loading}>Chargement</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   const { data: books } = bookQuery;
