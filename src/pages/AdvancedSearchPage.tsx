@@ -1,76 +1,59 @@
-import React from 'react';
-import useAdvancedSearch from "../hooks/useAdvancedSearch.ts";
-import { Card } from "../component/Card";
+import { useState } from 'react';
+import useAdvancedSearch from '../hooks/useAdvancedSearch';
+import './AdvancedSearchPage.css';
 
-const AdvancedSearchPage: React.FC = () => {
+const AdvancedSearch = () => {
+    const [searchClicked, setSearchClicked] = useState<boolean>(false);
     const {
-        title,
-        setTitle,
-        author,
-        setAuthor,
-        publishYear,
-        setPublishYear,
-        isbn,
-        setIsbn,
-        theme,
-        setTheme,
-        publisher,
-        setPublisher,
+        searchCriteria,
+        setSearchCriteria,
         results,
+        handleSearch
     } = useAdvancedSearch();
 
-    const handleSearch = () => {
+    const handleClickSearch = () => {
+        handleSearch();
+        setSearchClicked(true);
     };
+
     return (
-        <div>
+        <div className="container">
             <h1>Advanced Search</h1>
-            <div>
-                <label>
-                    Title:
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Author:
-                    <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    First Publish Year:
-                    <input type="text" value={publishYear} onChange={(e) => setPublishYear(e.target.value)} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    ISBN:
-                    <input type="text" value={isbn} onChange={(e) => setIsbn(e.target.value)} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Theme:
-                    <input type="text" value={theme} onChange={(e) => setTheme(e.target.value)} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Publisher:
-                    <input type="text" value={publisher} onChange={(e) => setPublisher(e.target.value)} />
-                </label>
-            </div>
-            <button onClick={handleSearch}>Search</button>
-            <div>
-                <h2>Search Results:</h2>
-                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {results.map((result) => (
-                        <Card key={result.key} book={result} />
-                    ))}
+            <div className="row">
+                <div className="form-group">
+                    <input type="text" value={searchCriteria.title} onChange={e => setSearchCriteria({ ...searchCriteria, title: e.target.value })} placeholder="Title"/>
+                </div>
+                <div className="form-group">
+                    <input type="text" value={searchCriteria.author} onChange={e => setSearchCriteria({ ...searchCriteria, author: e.target.value })} placeholder="Author"/>
                 </div>
             </div>
+            <div className="row">
+                <div className="form-group">
+                    <input type="text" value={searchCriteria.publishYear} onChange={e => setSearchCriteria({ ...searchCriteria, publishYear: e.target.value })} placeholder="Publish Year"/>
+                </div>
+                <div className="form-group">
+                    <input type="text" value={searchCriteria.isbn} onChange={e => setSearchCriteria({ ...searchCriteria, isbn: e.target.value })} placeholder="ISBN"/>
+                </div>
+            </div>
+            <div className="row">
+                <div className="form-group">
+                    <input type="text" value={searchCriteria.theme} onChange={e => setSearchCriteria({ ...searchCriteria, theme: e.target.value })} placeholder="Theme"/>
+                </div>
+                <div className="form-group">
+                    <input type="text" value={searchCriteria.publisher} onChange={e => setSearchCriteria({ ...searchCriteria, publisher: e.target.value })} placeholder="Publisher"/>
+                </div>
+            </div>
+
+            <button className="search-button" onClick={handleClickSearch}>Search</button>
+            {searchClicked && ( // Render results only when the search button is clicked
+                <ul>
+                    {results.map((book, index) => (
+                        <li key={index}>{book.title}</li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };
 
-export default AdvancedSearchPage;
+export default AdvancedSearch;

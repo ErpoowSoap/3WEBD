@@ -1,51 +1,42 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { TestBook } from '../types';
+
 
 const useAdvancedSearch = () => {
-    const [title, setTitle] = useState<string>('');
-    const [author, setAuthor] = useState<string>('');
-    const [publishYear, setPublishYear] = useState<string>('');
-    const [isbn, setIsbn] = useState<string>('');
-    const [theme, setTheme] = useState<string>('');
-    const [publisher, setPublisher] = useState<string>('');
+    const [searchCriteria, setSearchCriteria] = useState({
+        title: '',
+        author: '',
+        publishYear: '',
+        isbn: '',
+        theme: '',
+        publisher: ''
+    });
     const [results, setResults] = useState<TestBook[]>([]);
 
-    useEffect(() => {
-        const handleSearch = async () => {
-            try {
-                const url = new URL('https://openlibrary.org/search.json');
-                if (title) url.searchParams.append('title', title);
-                if (author) url.searchParams.append('author', author);
-                if (publishYear) url.searchParams.append('first_publish_year', publishYear);
-                if (isbn) url.searchParams.append('isbn', isbn);
-                if (theme) url.searchParams.append('subject', theme);
-                if (publisher) url.searchParams.append('publisher', publisher);
+    const handleSearch = async () => {
+        try {
+            const url = new URL('https://openlibrary.org/search.json');
 
-                const response = await fetch(url.toString());
-                const data = await response.json();
+            Object.entries(searchCriteria).forEach(([key, value]) => {
+                if (value && key in searchCriteria) {
+                    url.searchParams.append(key, value);
+                }
+            });
 
-                setResults(data.docs);
-            } catch (error) {
-                console.error('Error fetching search results:', error);
-            }
-        };
-
-        handleSearch();
-    }, [title, author, publishYear, isbn, theme, publisher]);
+            const response = await fetch(url.toString());
+            const data = await response.json();
+            console.log(data);
+            setResults(data.docs);
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        }
+    };
 
     return {
-        title,
-        setTitle,
-        author,
-        setAuthor,
-        publishYear,
-        setPublishYear,
-        isbn,
-        setIsbn,
-        theme,
-        setTheme,
-        publisher,
-        setPublisher,
-        results
+        searchCriteria,
+        setSearchCriteria,
+        results,
+        handleSearch
     };
 };
 
