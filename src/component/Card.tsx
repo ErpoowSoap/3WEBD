@@ -11,19 +11,21 @@ export function Card(props: CardProps) {
   const { book } = props;
   const cover = book.key.split("/")[2];
 
-  let subjects;  
+  let subjects;
   if (book && book.subjects) {
-    subjects = book.subjects.map((subject, index) => (
-      <div key={index} className={styles.featureItem}>
-        <IconTrees size="1.05rem" className={styles.icon} stroke={1.5} />
-        <p>{subject}</p>
-      </div>
-    )).slice(0, 2);
+    subjects = book.subjects
+      .map((subject, index) => (
+        <div key={index} className={styles.featureItem}>
+          <IconTrees size="1.05rem" className={styles.icon} stroke={1.5} />
+          <p>{subject}</p>
+        </div>
+      ))
+      .slice(0, 2);
   }
 
   return (
     <>
-    <div className={styles.card}>
+      <div className={styles.card}>
         <div className={styles.imageSection}>
           <div className={styles.back}>
             <Link to={`/details/${cover}`} className={styles.movieCard}>
@@ -31,25 +33,23 @@ export function Card(props: CardProps) {
                 <h4>{book.title}</h4>
               </div>
               <img
-              src={`https://covers.openlibrary.org/b/olid/${cover}-L.jpg`}
-              alt="Cover book"
-            />
+                src={`https://covers.openlibrary.org/b/olid/${cover}-L.jpg`}
+                alt="Cover book"
+              />
             </Link>
           </div>
         </div>
         <div className={styles.section}>
-            {subjects && (
-              <>
+          {subjects && (
+            <>
               <p className={styles.label}>Thèmes :</p>
-              <div className={styles.features}>
-              {subjects}
-              </div>
-              </>
-            )}
-          
-        <p>Description : {book.kind}</p>
+              <div className={styles.features}>{subjects}</div>
+            </>
+          )}
+
+          <p>Description : {book.kind}</p>
         </div>
-    </div >
-      </>
+      </div>
+    </>
   );
 }
