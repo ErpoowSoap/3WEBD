@@ -4,6 +4,7 @@ import { Header } from "./component/Header";
 import { Footer } from "./component/Footer";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
+import AdvancedSearch from "./pages/AdvancedSearchPage.tsx";
 
 function Root() {
   return (
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/details/:bookId",
         element: <DetailsPage />,
+      },
+      {
+        path: "/search",
+        element: <AdvancedSearch />,
       }
     ],
   },
