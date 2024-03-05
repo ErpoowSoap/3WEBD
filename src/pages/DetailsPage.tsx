@@ -11,7 +11,7 @@ export default function DetailsPage() {
     return <div>Book not found</div>;
   }
   const bookDetail = useDetailBook({ bookId });
-  console.log(bookDetail);
+  
 
   if (bookDetail.isLoading) {
     return <Loading />;
@@ -21,12 +21,14 @@ export default function DetailsPage() {
   if (bookDetail.isError || !book) {
     return <div>Book not found</div>;
   }
-
-  console.log(book);
-
-  const cover = book.workData.covers[0];
-  // const cover = bookId;
-
+  
+  const olId = book.key.split("/")[2]
+  let cover;
+  if(book?.covers){
+    cover = `https://covers.openlibrary.org/b/id/${book.covers}-L.jpg`;
+  }else{
+    cover = `https://covers.openlibrary.org/b/olid/${olId}-L.jpg`
+  }
 
   let subjects;
   if (book && book.subjects) {
@@ -50,6 +52,7 @@ export default function DetailsPage() {
   }
 
   return (
+    <>
       <div className={styles.cardContainer}>
         <div className={styles.root}>
           <div className={styles.containerImage}>

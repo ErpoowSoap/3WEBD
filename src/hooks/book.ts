@@ -23,13 +23,6 @@ export function useRecentChanges() {
           keysSet.add(key);
         }
       });
-
-      // const editeurName = await editeurFetch(
-      //   booksChanges.find((item: EditBook) => item.changes[0].key === key)
-      //     ?.author.key
-      // );
-      
-
       const booksData = await Promise.all(
         keys.map(async (key: string) => {
           const bookData = await booksFetch(key);
