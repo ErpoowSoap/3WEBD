@@ -15,7 +15,6 @@ export default function HomePage() {
   const [bookId, setBookId] = useState("");
 
   const handleOpenModal = (bookId: string) => {
-    console.log("L'ID du livre est :", bookId);
     setIsModalOpen(true);
     setBookId(bookId);
   };
@@ -53,7 +52,7 @@ export default function HomePage() {
         </div>
         <div className={styles.container}>
           {itemsToShow.map((book) => (
-            <Card key={book.title} book={book} onOpenModal={handleOpenModal} />
+            <Card key={book.key} book={book} onOpenModal={handleOpenModal} />
           ))}
         </div>
         <div

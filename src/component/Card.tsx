@@ -1,4 +1,5 @@
 // import { IconTrees } from "@tabler/icons-react";
+import { IconHeart } from "@tabler/icons-react";
 import { Book } from "../types";
 import styles from "./Card.module.css";
 import { Link } from "react-router-dom";
@@ -8,7 +9,7 @@ interface CardProps {
   onOpenModal: (bookId: string) => void;
 }
 
-export function Card({ book, onOpenModal}: CardProps) {
+export function Card({ book, onOpenModal }: CardProps) {
   const cover = book.key.split("/")[2];
   // const bookId = book.key;
 
@@ -47,12 +48,15 @@ export function Card({ book, onOpenModal}: CardProps) {
               <div className={styles.features}>{subjects}</div>
             </>
           )}
-
+          <p>Editeur : {book.editeur}</p>
           <p>Kind : {book.kind}</p>
         </div>
         <div className={styles.containerBtn}>
-          <button className={styles.button} onClick={() => onOpenModal(book.key)}>
-            Ouvrir la modal
+          <button
+            className={styles.button}
+            onClick={() => onOpenModal(book.key)}
+          >
+            <IconHeart size="1.5rem" className={styles.icon} stroke={2} />
           </button>
         </div>
       </div>

@@ -1,5 +1,6 @@
 export interface Book {
   works: Work[];
+  editeur: string;
   title: string;
   publishers: string[];
   publish_date: string;

@@ -13,7 +13,7 @@ export function useRecentChanges() {
       const booksChanges = data.filter((item: EditBook) =>
         ["add-book", "add-cover", "edit-book"].includes(item.kind)
       );
-
+      console.log("booksChanges", booksChanges);
       const keys: string[] = [];
       const keysSet = new Set<string>();
       booksChanges.forEach((item: EditBook) => {
@@ -23,31 +23,39 @@ export function useRecentChanges() {
           keysSet.add(key);
         }
       });
-      console.log("keys", keys);
+
+      // const editeurName = await editeurFetch(
+      //   booksChanges.find((item: EditBook) => item.changes[0].key === key)
+      //     ?.author.key
+      // );
+      
 
       const booksData = await Promise.all(
         keys.map(async (key: string) => {
           const bookData = await booksFetch(key);
+          const editeurName = await editeurFetch(
+            booksChanges.find((item: EditBook) => item.changes[0].key === key)
+              ?.author.key
+          );
           return {
             ...bookData,
             kind: booksChanges.find(
               (item: EditBook) => item.changes[0].key === key
             )?.kind,
+            editeur: editeurName.displayname,
           };
         })
       );
-      console.log("booksDatatest", booksData);
+      console.log(booksData);
       return booksData as Book[];
     },
   });
 }
 
-
 export function useDetailBook({ bookId }: { bookId: string }) {
   return useQuery({
     queryKey: ["detailsBook", { bookId }],
     queryFn: async () => {
-
       let bookData = {} as Book;
       let workData;
       let authorData;
@@ -70,12 +78,10 @@ export function useDetailBook({ bookId }: { bookId: string }) {
         throw new Error("Invalid bookId format");
       }
 
-
       return { ...bookData, workData, authorData } as Book;
     },
   });
 }
-
 
 export function useBooksInPlaylist(keys: string[]) {
   return useQuery({
@@ -105,4 +111,9 @@ async function worksFetch(workId: string) {
 async function authorsFetch(authorId: string) {
   const authors = await fetch(`${baseUrl}${authorId}.json`, {});
   return authors.json();
+}
+
+async function editeurFetch(editeurId: string) {
+  const editeur = await fetch(`${baseUrl}${editeurId}.json`, {});
+  return editeur.json();
 }

@@ -21,12 +21,7 @@ export default function DetailsPage() {
   if (bookDetail.isError || !book) {
     return <div>Book not found</div>;
   }
-
-  console.log(book);
-
   const cover = book.workData.covers[0];
-  // const cover = bookId;
-
 
   let subjects;
   if (book && book.subjects) {
@@ -54,7 +49,6 @@ export default function DetailsPage() {
       <div className={styles.root}>
         <div className={styles.containerImage}>
           <img
-            // src={`https://covers.openlibrary.org/b/olid/${cover}-L.jpg`}
             src={`https://covers.openlibrary.org/b/id/${cover}-L.jpg`}
             alt="Cover book"
           />
