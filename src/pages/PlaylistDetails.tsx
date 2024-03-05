@@ -3,7 +3,8 @@ import { getPlaylistItems } from "../hooks/playlist";
 import styles from "./PlaylistDetails.module.css";
 import { useBooksInPlaylist } from "../hooks/book";
 import { Loading } from "../component/Loading";
-import { Card } from "../component/Card";
+import { BookNotFound } from "../component/BookNotFound";
+import { PlaylistCard } from "../component/PlaylistCard";
 
 export default function PlaylistDetails() {
   const { playlistId } = useParams();
@@ -23,25 +24,25 @@ export default function PlaylistDetails() {
   if (booksQuery.isError || !book) {
     return <div>Book not found</div>;
   }
-  console.log(book);
-  const handleOpenModal = () => {};
+
+  if (book.length === 0) {
+    return (
+      <div>
+        <BookNotFound />
+      </div>
+    );
+  }
 
   return (
     <>
-      <div className={styles.title}>
-        <h2>Mes Playlists</h2>
-      </div>
-      <div className={styles.playlist}>
-        <div className={styles.root}>
-          <div className={styles.container}>
-            {book.map((book) => (
-              <Card
-                key={book.title}
-                book={book}
-                onOpenModal={handleOpenModal}
-              />
-            ))}
-          </div>
+      <div className={styles.root}>
+        <div className={styles.title}>
+          <h2>Mes Playlists</h2>
+        </div>
+        <div className={styles.container}>
+          {book.map((book) => (
+            <PlaylistCard key={book.title} book={book} />
+          ))}
         </div>
       </div>
     </>

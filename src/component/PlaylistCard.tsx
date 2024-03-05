@@ -1,15 +1,14 @@
 import { IconHeart } from "@tabler/icons-react";
 import { Book } from "../types";
-import styles from "./Card.module.css";
+import styles from "./PlaylistCard.module.css";
 import { Link } from "react-router-dom";
 import { ActionIcon, Group } from "@mantine/core";
 
 interface CardProps {
   book: Book;
-  onOpenModal: (bookId: string) => void;
 }
 
-export function Card({ book, onOpenModal }: CardProps) {
+export function PlaylistCard({ book}: CardProps) {
   const cover = book.key.split("/")[2];
 
   return (
@@ -29,13 +28,11 @@ export function Card({ book, onOpenModal }: CardProps) {
           </div>
         </div>
         <div className={styles.section}>
-          <p>Editeur : {book.editeur}</p>
-          <p>Kind : {book.kind}</p>
+          <p></p>
         </div>
         <div className={styles.containerBtn}>
           <Group justify="center">
             <ActionIcon
-              onClick={() => onOpenModal(book.key)}
               variant="default"
               size="xl"
             >

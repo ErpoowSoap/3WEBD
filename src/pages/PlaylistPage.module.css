@@ -8,17 +8,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 30px;
 }
 
 .container {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-bottom: 20px;
-  display: grid;
-  min-height: 400px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
-}
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    display: grid;
+    min-height: 400px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+
