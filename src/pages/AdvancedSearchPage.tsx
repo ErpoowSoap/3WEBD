@@ -2,7 +2,6 @@ import { useState } from "react";
 import { SearchCard } from "../component/SearchCard.tsx";
 import useAdvancedSearch from "../hooks/useAdvancedSearch";
 import styles from "./AdvancedSearchPage.module.css";
-// import styles from "./HomePage.module.css";
 import { PaginationPage } from "../component/Pagination";
 
 export default function AdvancedSearchPage() {
