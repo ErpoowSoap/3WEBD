@@ -113,7 +113,6 @@ interface Changes {
   key: string;
 }
 
-
 export interface PlaylistItem {
   name: string;
 }
@@ -121,7 +120,7 @@ export interface PlaylistItem {
 export interface PlaylistItem_Content {
   id: number;
   bookId: string;
-
+}
 
 export interface AdvancedSearch {
   already_read_count: number;

@@ -22,13 +22,8 @@ export default function DetailsPage() {
     return <div>Book not found</div>;
   }
 
-  
-  //const cover = book.key.split("/")[2];
   console.log(book);
 
-  //console.log(book);
-  //
-  // git config --global user.name "ellamaryan"
   const cover = book.workData.covers[0];
   // const cover = bookId;
 

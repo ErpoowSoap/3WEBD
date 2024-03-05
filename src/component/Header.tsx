@@ -5,22 +5,18 @@ import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 
 const links = [
-  { link: "/details", label: "Details" },
-  { link: "/playlist", label: "Playlist" },
-  { link: "/learn", label: "Learn" },
-  { link: "/community", label: "Community" },
-  { link: "/search", label: "Advanced Search"}
+  {
+    link: "/playlist",
+    label: "ReadList",
+  },
+  { link: "/search", label: "Advanced Search" },
 ];
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
 
   const items = links.map((link) => (
-    <Link
-      key={link.label}
-      to={link.link}
-      className={classes.link}
-    >
+    <Link key={link.label} to={link.link} className={classes.link}>
       {link.label}
     </Link>
   ));
@@ -30,8 +26,12 @@ export function Header() {
       <div className={classes.inner}>
         <Group>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-          <Link to= "/">
-          <img className= {classes.logo} src="./src/assets/image/logo.png" alt="/" />
+          <Link to="/">
+            <img
+              className={classes.logo}
+              src="./src/assets/image/logo.png"
+              alt="/"
+            />
           </Link>
           <h3>Sagesse Eternelle</h3>
         </Group>
@@ -49,11 +49,7 @@ export function Header() {
                 stroke={1.5}
               />
             }
-            data={[
-              "Livre 1",
-              "Livre 2",
-              "Livre 3",
-            ]}
+            data={["Livre 1", "Livre 2", "Livre 3"]}
             visibleFrom="xs"
           />
         </Group>

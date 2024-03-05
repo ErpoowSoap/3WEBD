@@ -40,7 +40,7 @@ export default function HomePage() {
     );
   }
 
-  const itemsPerPage = 12;
+  const itemsPerPage = 20;
   const totalPages = Math.ceil(books.length / itemsPerPage);
   const startIndex = (activePage - 1) * itemsPerPage;
   const itemsToShow = books.slice(startIndex, startIndex + itemsPerPage);

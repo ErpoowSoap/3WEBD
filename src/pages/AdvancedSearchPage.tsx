@@ -15,7 +15,7 @@ export default function AdvancedSearchPage() {
     handleSearch();
   };
 
-  const itemsPerPage = 12;
+  const itemsPerPage = 20;
   const totalPages = Math.ceil(results.length / itemsPerPage);
   const startIndex = (activePage - 1) * itemsPerPage;
   const itemsToShow = results.slice(startIndex, startIndex + itemsPerPage);
@@ -112,7 +112,7 @@ export default function AdvancedSearchPage() {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                marginBottom: "150px",
+                marginBottom: "20px",
               }}
             >
               <PaginationPage
