@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
@@ -10,51 +11,76 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 30px;
+  padding: 30px 0;
 }
 
 .titleSection {
   font-size: 25px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .containerTexte {
-  padding-top: 20px;
-  padding-right: 100px;
+  padding: 20px 0;
   flex: 1;
 }
 
 .containerBottom {
   display: flex;
-  padding: 100px;
+  flex-direction: column;
+  padding: 20px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
+
 
 .imageSection img {
   width: auto;
   height: auto;
 }
-
-.section {
-  padding: 0 20px;
+.cardContainer {
+  max-width: 80%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 100px;
 }
 
-.label {
-  font-weight: bold;
+
+@media only screen and (max-width: 600px) {
+  .cardContainer {
+    border-radius: 0;
+  }
+}
+
+
+.root {
+  display: flex;
+  flex-direction: column;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+
+.imageSection img {
+  max-width: 100%;
+  height: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.section {
+  padding: 0 10px;
 }
 
 .features {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 25px;
+  justify-content: center;
+  gap: 15px;
 }
 
 .featureItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: normal;
-  font-weight: bold;
+  gap: 5px;
+  font-size: smaller;
 }
