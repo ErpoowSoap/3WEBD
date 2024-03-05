@@ -26,12 +26,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/search", //
-        element: <AdvancedSearchPage />,
+        path: "/details/:bookId",
+        element: <DetailsPage />,
       },
       {
-        path: "/details:authorId",
-        element: <DetailsPage />,
+        path: "/search",
+        element: <AdvancedSearchPage />,
       }
     ],
   },
