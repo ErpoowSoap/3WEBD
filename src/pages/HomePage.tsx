@@ -1,4 +1,3 @@
-// HomePage.tsx
 import { useState } from "react";
 import { Card } from "../component/Card";
 import { Loading } from "../component/Loading";

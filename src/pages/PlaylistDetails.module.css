@@ -7,15 +7,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .container {
   display: grid;
   align-items: center;
   justify-content: center;
-  max-width: 90%;
-  margin: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 70px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    gap: 20px;
+    margin: 10px;
+  }
 }

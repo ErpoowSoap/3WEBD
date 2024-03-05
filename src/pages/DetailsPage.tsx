@@ -20,7 +20,7 @@ export default function DetailsPage() {
   if (bookDetail.isError || !book) {
     return <div>Book not found</div>;
   }
-  console.log(book)
+  console.log(book);
 
   let olId;
   if (book?.key) {
@@ -29,7 +29,10 @@ export default function DetailsPage() {
   let cover;
   if (book.workData?.covers) {
     cover = `https://covers.openlibrary.org/b/id/${book.workData.covers[0]}-L.jpg`;
-  } else if(!olId) {
+  }else if (book?.covers) {
+    cover = `https://covers.openlibrary.org/b/id/${book.covers}-L.jpg`;
+  }
+   else if (olId) {
     cover = `https://covers.openlibrary.org/b/olid/${olId}-L.jpg`;
   }
 

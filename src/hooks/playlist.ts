@@ -20,7 +20,7 @@ export function getPlaylists(): PlaylistItem[] {
 }
 
 export function getPlaylistItems(idPlaylist: number): PlaylistItem_Content[] {
-  const playlists = getPlaylistsContent(); // Supposons que cette fonction récupère toutes les playlists
+  const playlists = getPlaylistsContent(); 
   const playlistItems: PlaylistItem_Content[] = [];
 
   playlists.forEach(playlist => {

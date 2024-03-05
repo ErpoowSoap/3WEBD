@@ -1,15 +1,13 @@
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Autocomplete, Group, Burger, rem } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconSearch } from "@tabler/icons-react";
 import classes from "./Header.module.css";
 import useGeneralSearch from "../hooks/useGeneralSearch.ts";
-import {AdvancedSearch} from "../types.ts";
+import { AdvancedSearch } from "../types.ts";
+
 const links = [
-  {
-    link: "/playlist",
-    label: "ReadList",
-  },
+  { link: "/playlist", label: "ReadList" },
   { link: "/search", label: "Advanced Search" },
 ];
 
@@ -19,12 +17,13 @@ export function Header() {
   const navigate = useNavigate();
 
   const items = links.map((link) => (
-      <Link key={link.label} to={link.link} className={classes.link}>
-        {link.label}
-      </Link>
+    <Link key={link.label} to={link.link} className={classes.link}>
+      {link.label}
+    </Link>
   ));
 
   return (
+
       <header className={classes.header}>
           <div className={classes.inner}>
               <Group>
