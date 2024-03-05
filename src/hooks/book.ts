@@ -10,7 +10,9 @@ export function useRecentChanges() {
       const response = await fetch(`${baseUrl}/recentchanges.json`);
       const data = await response.json();
 
-      const booksChanges = data.filter((item: EditBook) => ["add-book", "add-cover", "edit-book"].includes(item.kind));
+      const booksChanges = data.filter((item: EditBook) =>
+        ["add-book", "add-cover", "edit-book"].includes(item.kind)
+      );
 
       const keys: string[] = [];
       const keysSet = new Set<string>();
@@ -19,14 +21,19 @@ export function useRecentChanges() {
         if (key.includes("books") && !keysSet.has(key)) {
           keys.push(key);
           keysSet.add(key);
-        }   
+        }
       });
       console.log("keys", keys);
-      
+
       const booksData = await Promise.all(
         keys.map(async (key: string) => {
           const bookData = await booksFetch(key);
-          return {...bookData, kind: booksChanges.find((item: EditBook) => item.changes[0].key === key)?.kind};
+          return {
+            ...bookData,
+            kind: booksChanges.find(
+              (item: EditBook) => item.changes[0].key === key
+            )?.kind,
+          };
         })
       );
       console.log("booksDatatest", booksData);
@@ -35,23 +42,37 @@ export function useRecentChanges() {
   });
 }
 
-export function useBook({ bookId }: { bookId: string }) {
+
+export function useDetailBook({ bookId }: { bookId: string }) {
   return useQuery({
     queryKey: ["detailsBook", { bookId }],
     queryFn: async () => {
-      const bookData = await booksFetch('/books/' + bookId);
-      const workData = bookData.works && bookData.works.length > 0
-        ? await worksFetch(bookData.works[0].key)
-        : null;
-      const authorData = workData.authors && workData.authors.length > 0
-        ? await authorsFetch(workData.authors[0].author.key)
-        : null;
+      let bookData = {} as Book;
+      let workData;
+      let authorData;
+
+      if (bookId.endsWith("M")) {
+        bookData = await booksFetch("/books/" + bookId);
+        workData =
+          bookData.works && bookData.works.length > 0
+            ? await worksFetch(bookData.works[0].key)
+            : null;
+        if (workData.authors && workData.authors.length > 0) {
+          authorData = await authorsFetch(workData.authors[0].author.key);
+        }
+      } else if (bookId.endsWith("W")) {
+        workData = await worksFetch("/works/" + bookId);
+        if (workData.authors && workData.authors.length > 0) {
+          authorData = await authorsFetch(workData.authors[0].author.key);
+        }
+      } else {
+        throw new Error("Invalid bookId format");
+      }
+
       return { ...bookData, workData, authorData } as Book;
-    }
+    },
   });
 }
-
-
 
 async function booksFetch(bookId: string) {
   const books = await fetch(`${baseUrl}${bookId}.json`, {});
@@ -67,7 +88,3 @@ async function authorsFetch(authorId: string) {
   const authors = await fetch(`${baseUrl}${authorId}.json`, {});
   return authors.json();
 }
-
-
-
-
