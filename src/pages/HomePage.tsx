@@ -12,15 +12,17 @@ export default function HomePage() {
   const bookQuery = useRecentChanges();
   const [activePage, setActivePage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bookId, setBookId] = useState("");
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (bookId: string) => {
+    console.log("L'ID du livre est :", bookId);
     setIsModalOpen(true);
+    setBookId(bookId);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
 
   if (bookQuery.isLoading) {
     return <Loading />;
@@ -46,13 +48,12 @@ export default function HomePage() {
   return (
     <>
       <div className={styles.root}>
+        <div className={styles.title}>
+          <h1>Recent Changes</h1>
+        </div>
         <div className={styles.container}>
           {itemsToShow.map((book) => (
-            <Card
-              key={book.title}
-              book={book}
-              onOpenModal={handleOpenModal}
-            />
+            <Card key={book.title} book={book} onOpenModal={handleOpenModal} />
           ))}
         </div>
         <div
@@ -70,7 +71,9 @@ export default function HomePage() {
         </div>
       </div>
       <ModalPortal>
-        {isModalOpen && <ModalComponent onClose={handleCloseModal}/>}
+        {isModalOpen && (
+          <ModalComponent onClose={handleCloseModal} bookId={bookId} />
+        )}
       </ModalPortal>
     </>
   );

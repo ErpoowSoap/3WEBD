@@ -4,7 +4,6 @@
 }
 
 .title {
-  padding-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,11 +13,9 @@
   display: grid;
   align-items: center;
   justify-content: center;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-bottom: 20px;
+  max-width: 90%;
+  margin: 100px;
   display: grid;
-  min-height: 400px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 }

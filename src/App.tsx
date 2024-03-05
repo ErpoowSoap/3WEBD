@@ -5,6 +5,7 @@ import { Footer } from "./component/Footer";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
 import PlaylistPage from "./pages/PlaylistPage";
+import PlaylistDetails from "./pages/PlaylistDetails";
 
 function Root() {
   return (
@@ -31,6 +32,9 @@ const router = createBrowserRouter([
       }, {
         path: "/playlist",
         element: <PlaylistPage/>
+      }, {
+        path: "/playlist/details/:playlistId",
+        element: <PlaylistDetails/>
       }
     ],
   },

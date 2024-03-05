@@ -6,7 +6,7 @@ export interface Book {
   key: string;
   kind: string;
   type: {
-      key: string;
+    key: string;
   };
   covers: number[];
   identifiers: Record<string, unknown>;
@@ -15,10 +15,12 @@ export interface Book {
   subtitle: string;
   publish_places: string[];
   copyright_date: string;
-  description: string| {
-    type: string;
-    value: string;
-  };
+  description:
+    | string
+    | {
+        type: string;
+        value: string;
+      };
   series: string[];
   physical_format: string;
   number_of_pages: number;
@@ -28,12 +30,12 @@ export interface Book {
   pagination: string;
   subjects: string[];
   created: {
-      type: string;
-      value: string;
+    type: string;
+    value: string;
   };
   last_modified: {
-      type: string;
-      value: string;
+    type: string;
+    value: string;
   };
   workData: Work;
   authorData: Author;
@@ -44,38 +46,34 @@ interface Work {
   title: string;
   authors: AuthorRole[];
   type: {
-      key: string;
+    key: string;
   };
   covers: number[];
-  description: string | {
-      type: string;
-      value: string;
-  };
+  description:
+    | string
+    | {
+        type: string;
+        value: string;
+      };
   subjects: string[];
   latest_revision: number;
   revision: number;
   created: {
-      type: string;
-      value: string;
+    type: string;
+    value: string;
   };
   last_modified: {
-      type: string;
-      value: string;
+    type: string;
+    value: string;
   };
-}
-
-interface Description{
-  type: string;
-  value: string;
-
 }
 
 interface AuthorRole {
   author: {
-      key: string;
+    key: string;
   };
   type: {
-      key: string;
+    key: string;
   };
 }
 
@@ -87,21 +85,19 @@ interface Bio {
 interface Author {
   name: string;
   last_modified: {
-      type: string;
-      value: string;
+    type: string;
+    value: string;
   };
   birth_date: string;
   death_date: string;
   key: string;
   bio: string | Bio[];
   type: {
-      key: string;
+    key: string;
   };
   id: number;
   revision: number;
 }
-
-
 
 export interface EditBook {
   id: string;
@@ -117,8 +113,11 @@ interface Changes {
   key: string;
 }
 
-export interface Playlist {
-  push(bookKey: string): unknown;
+export interface PlaylistItem {
   name: string;
-  bookKeys: string[];
+}
+
+export interface PlaylistItem_Content {
+  id: number;
+  bookId: string;
 }
