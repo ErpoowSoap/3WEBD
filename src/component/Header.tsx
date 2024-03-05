@@ -9,6 +9,7 @@ const links = [
   { link: "/playlist", label: "Playlist" },
   { link: "/learn", label: "Learn" },
   { link: "/community", label: "Community" },
+  { link: "/search", label: "Advanced Search"}
 ];
 
 export function Header() {

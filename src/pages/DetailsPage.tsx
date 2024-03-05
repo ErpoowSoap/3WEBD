@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import styles from "./DetailsPage.module.css";
 import "./DetailsPage.module.css";
-import { useBook } from "../hooks/book";
+import { useDetailBook } from "../hooks/book";
 import { IconHeart } from "@tabler/icons-react";
 import { Loading } from "../component/Loading";
 
@@ -10,7 +10,8 @@ export default function DetailsPage() {
   if (!bookId || bookId === undefined) {
     return <div>Book not found</div>;
   }
-  const bookDetail = useBook({ bookId });
+  const bookDetail = useDetailBook({ bookId });
+  console.log(bookDetail);
 
   if (bookDetail.isLoading) {
     return <Loading />;
@@ -20,9 +21,17 @@ export default function DetailsPage() {
   if (bookDetail.isError || !book) {
     return <div>Book not found</div>;
   }
+
   
-  const cover = book.key.split("/")[2];
+  //const cover = book.key.split("/")[2];
   console.log(book);
+
+  //console.log(book);
+  //
+  // git config --global user.name "ellamaryan"
+  const cover = book.workData.covers[0];
+  // const cover = bookId;
+
 
   let subjects;
   if (book && book.subjects) {
@@ -50,13 +59,14 @@ export default function DetailsPage() {
       <div className={styles.root}>
         <div className={styles.containerImage}>
           <img
-            src={`https://covers.openlibrary.org/b/olid/${cover}-L.jpg`}
+            // src={`https://covers.openlibrary.org/b/olid/${cover}-L.jpg`}
+            src={`https://covers.openlibrary.org/b/id/${cover}-L.jpg`}
             alt="Cover book"
           />
         </div>
         <div className={styles.containerTexte}>
           <div className={styles.titleSection}>
-            <h2>{book.title}</h2>
+            <h2>{book.workData.title}</h2>
           </div>
           <div className={styles.section}>
             {book.authorData ? (

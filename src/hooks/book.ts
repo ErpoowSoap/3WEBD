@@ -42,23 +42,40 @@ export function useRecentChanges() {
   });
 }
 
-export function useBook({ bookId }: { bookId: string }) {
+
+export function useDetailBook({ bookId }: { bookId: string }) {
   return useQuery({
     queryKey: ["detailsBook", { bookId }],
     queryFn: async () => {
-      const bookData = await booksFetch("/books/" + bookId);
-      const workData =
-        bookData.works && bookData.works.length > 0
-          ? await worksFetch(bookData.works[0].key)
-          : null;
-      const authorData =
-        workData.authors && workData.authors.length > 0
-          ? await authorsFetch(workData.authors[0].author.key)
-          : null;
+
+      let bookData = {} as Book;
+      let workData;
+      let authorData;
+
+      if (bookId.endsWith("M")) {
+        bookData = await booksFetch("/books/" + bookId);
+        workData =
+          bookData.works && bookData.works.length > 0
+            ? await worksFetch(bookData.works[0].key)
+            : null;
+        if (workData.authors && workData.authors.length > 0) {
+          authorData = await authorsFetch(workData.authors[0].author.key);
+        }
+      } else if (bookId.endsWith("W")) {
+        workData = await worksFetch("/works/" + bookId);
+        if (workData.authors && workData.authors.length > 0) {
+          authorData = await authorsFetch(workData.authors[0].author.key);
+        }
+      } else {
+        throw new Error("Invalid bookId format");
+      }
+
+
       return { ...bookData, workData, authorData } as Book;
     },
   });
 }
+
 
 export function useBooksInPlaylist(keys: string[]) {
   return useQuery({

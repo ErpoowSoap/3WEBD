@@ -4,8 +4,11 @@ import { Header } from "./component/Header";
 import { Footer } from "./component/Footer";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
+
 import PlaylistPage from "./pages/PlaylistPage";
 import PlaylistDetails from "./pages/PlaylistDetails";
+
+import AdvancedSearchPage from "./pages/AdvancedSearchPage.tsx";
 
 function Root() {
   return (
@@ -29,12 +32,19 @@ const router = createBrowserRouter([
       {
         path: "/details/:bookId",
         element: <DetailsPage />,
+
       }, {
         path: "/playlist",
         element: <PlaylistPage/>
       }, {
         path: "/playlist/details/:playlistId",
         element: <PlaylistDetails/>
+
+      },
+      {
+        path: "/search",
+        element: <AdvancedSearchPage />,
+
       }
     ],
   },
