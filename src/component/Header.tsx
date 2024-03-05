@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const links = [
   { link: "/details", label: "Details" },
-  { link: "/pricing", label: "Pricing" },
+  { link: "/playlist", label: "Playlist" },
   { link: "/learn", label: "Learn" },
   { link: "/community", label: "Community" },
 ];

@@ -1,0 +1,97 @@
+/* Styles for modal overlay */
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  max-height: 600px;
+  height: 50%;
+  width: 80%;
+}
+
+.closeButton {
+  position: relative;
+  float: right;
+  text-align: right;
+  height: 30px;
+}
+
+.closeButton button {
+  border-color: gray;
+  border-radius: 5px;
+  background: lightgray;
+  color: gray;
+  cursor: pointer;
+}
+
+.closeButton button:hover {
+  color: red;
+}
+
+/* Styles for modal title */
+.title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.title h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 200px;
+}
+
+/* Styles for create playlist form */
+.createPlaylistForm {
+  margin-top: 20px;
+}
+
+.createPlaylistForm input[type="text"] {
+  width: calc(100% - 100px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.createPlaylistForm button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.createPlaylistForm button:hover {
+  background-color: #0056b3;
+}
+
+.buttonCheckBox {
+  border: none;
+  /* padding: 10px; */
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: var(--mantine-radius-sm);
+  font-size: 15px;
+}

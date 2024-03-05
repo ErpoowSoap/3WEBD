@@ -15,6 +15,10 @@ export interface Book {
   subtitle: string;
   publish_places: string[];
   copyright_date: string;
+  description: string| {
+    type: string;
+    value: string;
+  };
   series: string[];
   physical_format: string;
   number_of_pages: number;
@@ -43,7 +47,10 @@ interface Work {
       key: string;
   };
   covers: number[];
-  description: string | Description[];
+  description: string | {
+      type: string;
+      value: string;
+  };
   subjects: string[];
   latest_revision: number;
   revision: number;
@@ -110,3 +117,8 @@ interface Changes {
   key: string;
 }
 
+export interface Playlist {
+  push(bookKey: string): unknown;
+  name: string;
+  bookKeys: string[];
+}

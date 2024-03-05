@@ -20,10 +20,9 @@ export default function DetailsPage() {
   if (bookDetail.isError || !book) {
     return <div>Book not found</div>;
   }
-  //console.log(book);
-  //
-  // git config --global user.name "ellamaryan"
+  
   const cover = book.key.split("/")[2];
+  console.log(book);
 
   let subjects;
   if (book && book.subjects) {
@@ -113,7 +112,15 @@ export default function DetailsPage() {
               Description :{" "}
               {typeof book.workData.description === "string"
                 ? book.workData.description
-                : book.workData.description[0]?.value}
+                : book.workData.description.value}
+            </p>
+          )}
+          {book.description && (
+            <p className={styles.label}>
+              Description :{" "}
+              {typeof book.description === "string"
+                ? book.description
+                : book.description.value}
             </p>
           )}
           <div className={styles.features}>

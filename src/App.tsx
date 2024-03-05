@@ -4,6 +4,7 @@ import { Header } from "./component/Header";
 import { Footer } from "./component/Footer";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
+import PlaylistPage from "./pages/PlaylistPage";
 
 function Root() {
   return (
@@ -27,6 +28,9 @@ const router = createBrowserRouter([
       {
         path: "/details/:bookId",
         element: <DetailsPage />,
+      }, {
+        path: "/playlist",
+        element: <PlaylistPage/>
       }
     ],
   },

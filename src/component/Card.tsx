@@ -2,13 +2,14 @@ import { IconTrees } from "@tabler/icons-react";
 import { Book } from "../types";
 import styles from "./Card.module.css";
 import { Link } from "react-router-dom";
+import { addToPlaylist } from "../hooks/playlist";
 
 interface CardProps {
   book: Book;
+  onOpenModal: () => void;
 }
 
-export function Card(props: CardProps) {
-  const { book } = props;
+export function Card({ book, onOpenModal }: CardProps) {
   const cover = book.key.split("/")[2];
 
   let subjects;
@@ -22,6 +23,11 @@ export function Card(props: CardProps) {
       ))
       .slice(0, 2);
   }
+
+  const handleAddToPlaylist = () => {
+    addToPlaylist(book.key, "Playlist 1");
+    alert("Le livre a été ajouté à la playlist !");
+  };
 
   return (
     <>
@@ -47,7 +53,15 @@ export function Card(props: CardProps) {
             </>
           )}
 
-          <p>Description : {book.kind}</p>
+          <p>Kind : {book.kind}</p>
+        </div>
+        <div className={styles.containerBtn}>
+          <button className={styles.button} onClick={onOpenModal}>
+            Ouvrir la modal
+          </button>
+          <button className={styles.button} onClick={handleAddToPlaylist}>
+            Ajouter à la playlist
+          </button>
         </div>
       </div>
     </>

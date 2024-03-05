@@ -3,6 +3,17 @@ import { Book, EditBook } from "../types";
 
 const baseUrl = "https://openlibrary.org";
 
+export function addToPlaylist(book: Book) {
+  const playlist = getPlaylist();
+  playlist.push(book);
+  localStorage.setItem('playlist', JSON.stringify(playlist));
+}
+
+export function getPlaylist(): Book[] {
+  const playlistString = localStorage.getItem('playlist');
+  return playlistString ? JSON.parse(playlistString) : [];
+}
+
 export function useRecentChanges() {
   return useQuery({
     queryKey: ["book"],
