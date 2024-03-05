@@ -1,27 +1,28 @@
-import { IconTrees } from "@tabler/icons-react";
+// import { IconTrees } from "@tabler/icons-react";
 import { Book } from "../types";
 import styles from "./Card.module.css";
 import { Link } from "react-router-dom";
 
 interface CardProps {
   book: Book;
+  onOpenModal: (bookId: string) => void;
 }
 
-export function Card(props: CardProps) {
-  const { book } = props;
+export function Card({ book, onOpenModal}: CardProps) {
   const cover = book.key.split("/")[2];
+  // const bookId = book.key;
 
   let subjects;
-  if (book && book.subjects) {
-    subjects = book.subjects
-      .map((subject, index) => (
-        <div key={index} className={styles.featureItem}>
-          <IconTrees size="1.05rem" className={styles.icon} stroke={1.5} />
-          <p>{subject}</p>
-        </div>
-      ))
-      .slice(0, 2);
-  }
+  // if (book && book.subjects) {
+  //   subjects = book.subjects
+  //     .map((subject, index) => (
+  //       <div key={index} className={styles.featureItem}>
+  //         <IconTrees size="1.05rem" className={styles.icon} stroke={1.5} />
+  //         <p>{subject}</p>
+  //       </div>
+  //     ))
+  //     .slice(0, 2);
+  // }
 
   return (
     <>
@@ -47,7 +48,12 @@ export function Card(props: CardProps) {
             </>
           )}
 
-          <p>Description : {book.kind}</p>
+          <p>Kind : {book.kind}</p>
+        </div>
+        <div className={styles.containerBtn}>
+          <button className={styles.button} onClick={() => onOpenModal(book.key)}>
+            Ouvrir la modal
+          </button>
         </div>
       </div>
     </>

@@ -1,13 +1,28 @@
+// HomePage.tsx
+import { useState } from "react";
 import { Card } from "../component/Card";
 import { Loading } from "../component/Loading";
+import { ModalComponent } from "../component/Modal";
 import { PaginationPage } from "../component/Pagination";
 import { useRecentChanges } from "../hooks/book";
+import { ModalPortal } from "../portal/ModalPortal";
 import styles from "./HomePage.module.css";
-import { useState } from "react";
 
 export default function HomePage() {
-  const bookQuery = useRecentChanges()
+  const bookQuery = useRecentChanges();
   const [activePage, setActivePage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bookId, setBookId] = useState("");
+
+  const handleOpenModal = (bookId: string) => {
+    console.log("L'ID du livre est :", bookId);
+    setIsModalOpen(true);
+    setBookId(bookId);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   if (bookQuery.isLoading) {
     return <Loading />;
@@ -33,9 +48,12 @@ export default function HomePage() {
   return (
     <>
       <div className={styles.root}>
+        <div className={styles.title}>
+          <h1>Recent Changes</h1>
+        </div>
         <div className={styles.container}>
           {itemsToShow.map((book) => (
-            <Card key={book.title} book={book} />
+            <Card key={book.title} book={book} onOpenModal={handleOpenModal} />
           ))}
         </div>
         <div
@@ -52,6 +70,11 @@ export default function HomePage() {
           />
         </div>
       </div>
+      <ModalPortal>
+        {isModalOpen && (
+          <ModalComponent onClose={handleCloseModal} bookId={bookId} />
+        )}
+      </ModalPortal>
     </>
   );
 }

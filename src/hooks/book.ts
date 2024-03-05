@@ -47,6 +47,7 @@ export function useDetailBook({ bookId }: { bookId: string }) {
   return useQuery({
     queryKey: ["detailsBook", { bookId }],
     queryFn: async () => {
+
       let bookData = {} as Book;
       let workData;
       let authorData;
@@ -69,7 +70,24 @@ export function useDetailBook({ bookId }: { bookId: string }) {
         throw new Error("Invalid bookId format");
       }
 
+
       return { ...bookData, workData, authorData } as Book;
+    },
+  });
+}
+
+
+export function useBooksInPlaylist(keys: string[]) {
+  return useQuery({
+    queryKey: ["books", keys],
+    queryFn: async () => {
+      const booksData = await Promise.all(
+        keys.map(async (key: string) => {
+          const bookData = await booksFetch(key);
+          return bookData;
+        })
+      );
+      return booksData as Book[];
     },
   });
 }
