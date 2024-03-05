@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TestBook } from '../types';
+import { Book } from '../types';
 
 
 const useAdvancedSearch = () => {
@@ -11,7 +11,7 @@ const useAdvancedSearch = () => {
         theme: '',
         publisher: ''
     });
-    const [results, setResults] = useState<TestBook[]>([]);
+    const [results, setResults] = useState<Book[]>([]);
 
     const handleSearch = async () => {
         try {
